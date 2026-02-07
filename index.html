@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Jua|Nunito">
+<title>i help babies decide what to do! 💖</title>
+
+<style>
+  body {
+    font-family: "Nunito";
+    background: linear-gradient(180deg, #ffeef2, #fff8ec);
+    color: #444444;
+    display: flex;
+    justify-content: center;
+    padding: 2rem; 
+  }
+
+  body::after {
+     content: "";
+     position: fixed;
+     inset: 0;
+     background: linear-gradient(180deg, #ffeef2, #fff8ec);
+     z-index: -1;
+  }
+
+  .card {
+    background: white;
+    border-radius: 24px;
+    padding: 2rem;
+    width: 100%;
+    max-width: 380px;
+    box-shadow:
+      0 10px 25px rgba(255, 143, 163, 0.15),
+      0 4px 10px rgba(0,0,0,0.05);
+    text-align: center;
+  }
+
+  h1 {
+    font-family: "Jua";
+    color: #ff8fa3;
+    margin: 0;
+    margin-bottom: 0.2rem;
+  }
+
+  .subtitle {
+    font-size: 0.9rem;
+    color: #888888;
+    margin-bottom: 1rem;
+  }
+
+  .picture {
+    width: 250px;
+    margin: 0.8rem auto 1.2rem;
+    display: block;
+    animation: float 3s ease-in-out infinite;
+    transition: opacity 0.15s ease;
+  }
+
+  @keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+    100% { transform: translateY(0); }
+  }
+
+  label {
+    display: block;
+    text-align: left;
+    font-size: 0.85rem;
+    margin: 0.8rem 0 0.3rem;
+    color: #666;
+  }
+
+  select {
+    width: 100%;
+    padding: 0.6rem;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    font-family: "Nunito";
+    font-size: 0.95rem;
+  }
+
+  .buttons {
+    display: flex;
+    gap: 0.6rem;
+    margin-top: 1.2rem;
+  }
+
+  button {
+    flex: 1;
+    padding: 0.6rem;
+    border-radius: 999px;
+    border: none;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+  }
+
+  button.primary {
+    background: #ff8fa3;
+    color: white;
+  }
+
+  button.secondary {
+    background: #ffe3ea;
+    color: #ff8fa3;
+  }
+
+  button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.12);
+  }
+
+  .result {
+    margin-top: 1.6rem;
+    padding: 1.2rem;
+    background: linear-gradient(180deg, #fff0f4, #fff);
+    border-radius: 16px;
+    border: 1px dashed #ffd1dc;
+    animation: pop 0.25s ease;
+  }
+
+  @keyframes pop {
+    from { transform: scale(0.95); opacity: 0.6; }
+    to { transform: scale(1); opacity: 1; }
+  }
+
+  .result-title {
+    font-size: 0.85rem;
+    color: #999999;
+    margin-bottom: 0.3rem;
+  }
+
+  .result-text {
+    font-size: 1.1rem;
+    font-weight: bold;
+  }
+
+  .result-sub {
+    font-size: 0.85rem;
+    color: #777777;
+    margin-top: 0.3rem;
+  }
+</style>
+</head>
+
+<body>
+
+<div class="card">
+  <h1>babies dunno what to do?</h1>
+  <div class="subtitle">i help babies decide!</div>
+
+  <!-- Category-based image -->
+  <img id="categoryImage" src="default.png" class="picture">
+
+  <label>what babies feel like doing?</label>
+  <select id="category">
+    <option value="" disabled selected>pick a category</option>
+    <option value="eat">🤤 want to eat!</option>
+    <option value="relax">🦦 want to relax!</option>
+    <option value="play">👾 want to play!</option>
+  </select>
+
+  <label>how much money babies have?</label>
+  <select id="budget">
+     <option value="" disabled selected>pick a budget</option>
+     <option value="low">💸 no money!</option>
+    <option value="mid">💳 little bit money!</option>
+    <option value="high">👑 babies rich!</option>
+  </select>
+
+  <div class="buttons">
+    <button class="primary" onclick="showSuggestion()">✨ help babies decide</button>
+    <button class="secondary" onclick="showSuggestion()">🔄 try again</button>
+  </div>
+
+  <div class="result" id="result" style="display:none;"></div>
+</div>
+
+<script>
+const dateOptions = {
+  eat: {
+    low: [
+      "grab something from a coffee shop",
+      "slurp on noodles or laksa",
+      "have prata and curry",
+      "sip on bubble tea or iced coffee",
+      "snack on dimsum or pastries",
+      "eat at a fast food restaurant",
+      "share a dessert",
+      "pick up some street food or snacks",
+    ],
+    mid: [
+      "sit down for a nice brunch at a cafe",
+      "treat yourselves to an acai bowl",
+      "slurp some japanese ramen or udon",
+      "have pasta or pizza at an italian spot",
+      "dig into korean dishes",
+      "enjoy the taste of thai food",
+      "share small plates of sushi",
+      "eat at a chinese eatery"
+    ],
+    high: [
+      "eat to your hearts' content at a buffet",
+      "check out a themed cafe",
+      "go cafe hopping",
+      "have afternoon tea at a fancy restaurant",
+      "dine at a restaurant with a nice view",
+      "book an omakase experience"
+    ]
+  },
+  relax: {
+    low: [
+      "take a walk in the park",
+      "hike a short trail",
+      "catch the sea breeze at a beach",
+      "go for a stroll at the sentosa boardwalk",
+      "go for a late night drive",
+      "visit a free museum exhibition"
+    ],
+    mid: [
+      "bake or cook for each other",
+      "sit back and do some artjamming",
+      "watch a movie in the cinema",
+      "sing your heart outs at karaoke",
+      "have a picnic with takeaway from a cafe",
+      "hop on a random bus and explore a new place"
+    ],
+    high: [
+      "go for a massage or spa",
+      "plan the next overseas trip",
+      "go for a premium cinema experience",
+      "grab to everywhere you go"
+    ]
+  },
+  play: {
+    low: [
+      "play a card or board game",
+      "fly a kite at the park",
+      "play hide and seek in the mall",
+      "try an outdoor photo challenge",
+      "solve a jigsaw puzzle"
+    ],
+    mid: [
+      "visit an arcade",
+      "go bowling",
+      "try paddleboating",
+      "play mini golf",
+      "escape from an escape room",
+      "try a VR experience",
+      "attend a fun workshop or class"
+    ],
+    high: [
+      "pretend to be a tourist at sentosa",
+      "visit the mandai wildlife reserve",
+      "take a day trip to an off-shore island",
+      "spend a day in JB",
+      "book a staycation"
+    ]
+  },
+};
+
+const categoryImages = {
+  eat: "eat.png",
+  relax: "relax.png",
+  play: "play.png",
+};
+
+document.getElementById("category").addEventListener("change", () => {
+  const cat = document.getElementById("category").value;
+  const img = document.getElementById("categoryImage");
+
+  if (!cat) return;
+
+  img.style.opacity = 0;
+  setTimeout(() => {
+    img.src = categoryImages[cat];
+    img.style.opacity = 1;
+  }, 150);
+});
+
+function showSuggestion() {
+  const cat = document.getElementById("category").value;
+  const bud = document.getElementById("budget").value;
+  const result = document.getElementById("result");
+
+  if (!cat || !bud) {
+    result.style.display = "block";
+    result.innerHTML = `
+      <div class="result-title">🐌 slow down babies</div>
+      <div class="result-text">pick a category and a budget first</div>
+      <div class="result-sub">then i help you decide!</div>
+    `;
+    return;
+  }
+
+  const list = dateOptions[cat][bud];
+  const pick = list[Math.floor(Math.random() * list.length)];
+
+  result.style.display = "block";
+  result.innerHTML = `
+    <div class="result-title">💡 my suggestion for babies:</div>
+    <div class="result-text">${pick}</div>
+  `;
+}
+</script>
+
+</body>
+</html>
