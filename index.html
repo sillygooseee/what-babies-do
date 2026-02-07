@@ -2,26 +2,17 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Jua|Nunito">
 <title>i help babies decide what to do! 💖</title>
 
 <style>
-  html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    overflow: hidden;
-  }
-
   body {
     font-family: "Nunito";
     background: linear-gradient(180deg, #ffeef2, #fff8ec);
     color: #444444;
     display: flex;
     justify-content: center;
-    min-height: 100vh;
-    align-items: center;
+    padding: 2rem; 
   }
 
   body::after {
@@ -36,35 +27,29 @@
     background: white;
     border-radius: 24px;
     padding: 2rem;
-    width: 80vw;
+    width: 100%;
     max-width: 380px;
     box-shadow:
       0 10px 25px rgba(255, 143, 163, 0.15),
       0 4px 10px rgba(0,0,0,0.05);
     text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    gap: 0.1rem;
   }
 
   h1 {
     font-family: "Jua";
-    font-size: clamp(1rem, 5vw, 2rem);
     color: #ff8fa3;
     margin: 0;
     margin-bottom: 0.2rem;
   }
 
   .subtitle {
-    font-size: clamp(0.75rem, 3vw, 0.9rem);;
+    font-size: 0.9rem;
     color: #888888;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
   }
 
   .picture {
     width: 250px;
-    max-width: 80%;
     margin: 0.8rem auto 1.2rem;
     display: block;
     animation: float 3s ease-in-out infinite;
@@ -80,7 +65,7 @@
   label {
     display: block;
     text-align: left;
-    font-size: clamp(0.75rem, 3vw, 0.85rem);
+    font-size: 0.85rem;
     margin: 0.8rem 0 0.3rem;
     color: #666;
   }
@@ -91,7 +76,7 @@
     border-radius: 12px;
     border: 1px solid #ddd;
     font-family: "Nunito";
-    font-size: clamp(0.85rem, 3vw, 0.95rem);
+    font-size: 0.95rem;
   }
 
   .buttons {
@@ -105,7 +90,7 @@
     padding: 0.6rem;
     border-radius: 999px;
     border: none;
-    font-size: clamp(0.85rem, 3vw, 0.9rem);
+    font-size: 0.9rem;
     cursor: pointer;
     transition: transform 0.1s ease, box-shadow 0.1s ease;
   }
@@ -132,8 +117,6 @@
     border-radius: 16px;
     border: 1px dashed #ffd1dc;
     animation: pop 0.25s ease;
-    max-height: 35vh;
-    overflow-y: auto;
   }
 
   @keyframes pop {
@@ -142,18 +125,18 @@
   }
 
   .result-title {
-    font-size: clamp(0.75rem, 2.5vw, 0.85rem);
+    font-size: 0.85rem;
     color: #999999;
     margin-bottom: 0.3rem;
   }
 
   .result-text {
-    font-size: clamp(1rem, 3.5vw, 1.1rem);
+    font-size: 1.1rem;
     font-weight: bold;
   }
 
   .result-sub {
-    font-size: clamp(0.75rem, 2.5vw, 0.85rem);
+    font-size: 0.85rem;
     color: #777777;
     margin-top: 0.3rem;
   }
